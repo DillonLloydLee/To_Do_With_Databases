@@ -12,29 +12,38 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
 
-                <h1><center>Welcome to To Do List!</center></h1>
+                <h1><center>{{ task.getDescription }}!</center></h1>
                 <hr>
 
-                {% if tasks is not empty %}
-                    <p>Here are all your tasks:</p>
+                {% if categories is not empty %}
+                    <p>Here are the categories for this task:</p>
                     <ul>
-                        {% for task in tasks %}
-                            <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                        {% for category in categories %}
+                            <li>{{ category.getName }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
 
-                <form action='/tasks' method='post'>
-                    <label for='description'>Task description:</label>
-                    <input id='description' name='description' type='text'>
+                <h4>Add a category to this task:</h4>
+
+                <form action="/add_categories" method="post">
+                    <input id="task_id" name="task_id" type="hidden" value="{{ task.getId() }}">
+
+                    <label for = "category_id">Select a category</label>
+                    <select id='category_id' name='category_id' type='text'>
+                        {% for category in all_categories %}
+                            <option value="{{ category.getId }}"> {{ category.getName }} </option>
+                        {% endfor %}
+                    </select>
+                    <!-- <label for="description">Task Description</label>
+                    <input id="description" name="description" type="text"
+                        placeholder="Thing to do">
+                    <br>
                     <label for="due_date">Due Date</label>
                     <input id="due_date" name="due_date" type="date">
+                    <br> -->
 
-                    <button type='submit'>Add task</button>
-                </form>
-
-                <form action='/delete_tasks' method='post'>
-                    <button type='submit'>Clear</button>
+                    <button type="submit" class="btn-danger">Add category</button>
                 </form>
                 <br>
                 <hr>
@@ -52,7 +61,7 @@
                 </center>
 
             </div>
-            <div class="col-sm-3"></div>
+            <div = class="col-sm-3"></div>
 
         </div>
     </body>

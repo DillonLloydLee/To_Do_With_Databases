@@ -19,7 +19,10 @@
                     <p>Here are all your tasks:</p>
                     <ul>
                         {% for task in tasks %}
-                            <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                                <a href = '/tasks/{{ task.getId }}'>
+                                    <li>{{ task.getDescription }}</li>
+                                    <p>  - {{ task.getDueDate }}</p>
+                                </a>
                         {% endfor %}
                     </ul>
                 {% endif %}

@@ -15,8 +15,27 @@
                 <h1><center>Welcome to To Do List!</center></h1>
                 <hr>
 
-                <h3><a href="/categories">Add or view a category</a></h3>
-                <h3><a href="/tasks">Add or view a task</a></h3>
+                {% if tasks is not empty %}
+                    <p>Here are all your tasks:</p>
+                    <ul>
+                        {% for task in tasks %}
+                            <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <form action='/tasks' method='post'>
+                    <label for='description'>Task description:</label>
+                    <input id='description' name='description' type='text'>
+
+                    <button type='submit'>Add task</button>
+                </form>
+
+                <form action='/delete_tasks' method='post'>
+                    <button type='submit'>Clear</button>
+                </form>
+                <br>
+                <hr>
 
                 <center>
                     <form action="/" method="get">

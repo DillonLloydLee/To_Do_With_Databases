@@ -32,8 +32,7 @@
                             <h3><a href="/categories/{{ category.getId }}">
                                 {{ category.getName }}</a></h3>
 
-                            <form action="/categories/{{ category.getId }}
-                                /delete" method="post">
+                            <form action="/categories/{{ category.getId }}/delete" method="post">
                             <input name="_method" type="hidden" value="delete">
                             <button type="submit" class="btn-xs btn-danger">
                                 Delete this category!</button>

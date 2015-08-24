@@ -221,6 +221,18 @@
             $this->assertEquals([], $test_category->getTasks());
         }
 
+        function test_completeToggle() {
+            $description = "File reprts";
+            $id2 = 2;
+            $due_date = '0000-00-00';
+            $test_task = new Task($description, $id2, $due_date);
+            $test_task->save();
+
+            $result = $test_task->completeToggle();
+
+            $this->assertEquals("true", $result);
+        }
+
 
     }
 

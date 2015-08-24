@@ -108,5 +108,16 @@
             }
             return $found_task;
         }
+
+        function completeToggle(){
+            $complete = $this->getComplete();
+            if ($complete == "true") {
+                $complete = "false";
+            }
+            else {
+                $complete = "true";
+            }
+            return $complete;
+        }
     }
 ?>

@@ -228,7 +228,9 @@
             $test_task = new Task($description, $id2, $due_date);
             $test_task->save();
 
-            $result = $test_task->completeToggle();
+            $test_task->completeToggle();
+
+            $result = $test_task->getComplete();
 
             $this->assertEquals("true", $result);
         }

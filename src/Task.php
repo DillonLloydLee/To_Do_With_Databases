@@ -33,6 +33,10 @@
             return $this->due_date;
         }
 
+        function setComplete($complete) {
+            $this->complete = $complete;
+        }
+
         function getComplete() {
             return $this->complete;
         }
@@ -117,7 +121,8 @@
             else {
                 $complete = "true";
             }
-            return $complete;
+            $GLOBALS['DB']->exec("UPDATE tasks SET complete = '{$complete}' WHERE id = {$this->getId()};");
+            $this->setComplete($complete);
         }
     }
 ?>

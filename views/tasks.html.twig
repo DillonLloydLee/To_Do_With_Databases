@@ -19,10 +19,14 @@
                     <p>Here are all your tasks:</p>
                     <ul>
                         {% for task in tasks %}
-                                <a href = '/tasks/{{ task.getId }}'>
-                                    <li>{{ task.getDescription }}</li>
-                                    <p>  - {{ task.getDueDate }}</p>
-                                </a>
+                            <a href = '/tasks/{{ task.getId }}'>
+                                <li>{{ task.getDescription }}</li>
+                                <p>  - {{ task.getDueDate }}</p>
+                            </a>
+
+                            <form action="/tasks/toggle" method="post">
+                                <button type="submit" class="btn-xs btn-danger">[ √ ]</button>
+                            </form>
                         {% endfor %}
                     </ul>
                 {% endif %}

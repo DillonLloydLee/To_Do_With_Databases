@@ -26,10 +26,19 @@
                 <br><br>
 
                 {% if categories is not empty %}
-                    <p>Here are all your categories:</p>
+                    <h2>Here are all your categories:</h2>
                     <ul>
                         {% for category in categories %}
-                            <li><a href="/categories/{{ category.getId }}">{{ category.getName }}</a></li>
+                            <h3><a href="/categories/{{ category.getId }}">
+                                {{ category.getName }}</a></h3>
+
+                            <form action="/categories/{{ category.getId }}
+                                /delete" method="post">
+                            <input name="_method" type="hidden" value="delete">
+                            <button type="submit" class="btn-xs btn-danger">
+                                Delete this category!</button>
+                            </form>
+
                         {% endfor %}
                     </ul>
                 {% else %}

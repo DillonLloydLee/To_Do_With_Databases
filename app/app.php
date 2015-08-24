@@ -45,7 +45,7 @@
 
     $app->get("/tasks/{id}", function($id) use ($app) {
         $task = Task::find($id);
-        return $app['twig']->render('task.html.twig', array('task' => $task, 'categories' => $task->getCategories(), 'all_categories' => Category::getAll()));
+        return $app['twig']->render('task_edit.html.twig', array('task' => $task, 'categories' => $task->getCategories(), 'all_categories' => Category::getAll()));
     });
 
 
@@ -58,7 +58,7 @@
 
     $app->get("/categories/{id}", function($id) use ($app) {
         $category = Category::find($id);
-        return $app['twig']->render('category.html.twig',
+        return $app['twig']->render('category_edit.html.twig',
             array('category' => $category, 'tasks' =>
             $category->getTasks(), 'all_tasks' => Task::getAll()));
     });
@@ -69,6 +69,12 @@
             array('categories' => Category::getAll()));
     });
 
+    $app->delete("/categories/{id}/delete", function($id) use($app){
+        $category = Category::find($id);
+        $category->delete();
+        return $app["twig"]->render("categories.html.twig",
+            array("categories" => Category::getAll()));
+    });
 
     $app->post("/deleted_categories", function() use ($app) {
         Category::deleteAll();
@@ -80,14 +86,22 @@
         $category = Category::find($_POST['category_id']);
         $task = Task::find($_POST["task_id"]);
         $category->addTask($task);
-        return $app["twig"]->render("category.html.twig", array("category" => $category, "categories" => Category::getAll(), "tasks" => $category->getTasks(), "all_tasks" => Task::getAll()));
+        return $app["twig"]->render("category_edit.html.twig", array("category" => $category, "categories" => Category::getAll(), "tasks" => $category->getTasks(), "all_tasks" => Task::getAll()));
+    });
+
+    $app->patch("/categories/{id}/edit", function($id) use ($app) {
+        $name = $_POST["name"];
+        $category = Category::find($id);
+        $category->update($name);
+
+        return $app["twig"]->render("category_edit.html.twig", array("category" => $category, "categories" => Category::getAll(), "tasks" => $category->getTasks(), "all_tasks" => Task::getAll()));
     });
 
     $app->post("/add_categories", function() use ($app) {
         $category = Category::find($_POST['category_id']);
         $task = Task::find($_POST["task_id"]);
         $task->addCategory($category);
-        return $app["twig"]->render("task.html.twig", array("task" => $task, "tasks" => Task::getAll(), "categories" => $task->getCategories(), "all_categories" => Category::getAll()));
+        return $app["twig"]->render("task_edit.html.twig", array("task" => $task, "tasks" => Task::getAll(), "categories" => $task->getCategories(), "all_categories" => Category::getAll()));
     });
 
     $app->patch("/tasks/toggle/{id}", function($id) use ($app) {

@@ -4,6 +4,12 @@ hr {
     height: 5px;
 }
 
+hr.small {
+    color: #f00;
+    background-color: #f00;
+    height: 2px;
+}
+
 form {
     display: inline;
 }

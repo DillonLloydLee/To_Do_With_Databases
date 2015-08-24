@@ -42,6 +42,20 @@
                     <button type="submit" class="btn-danger">Add task</button>
                 </form>
                 <br>
+
+                <hr class="small">
+
+                <h4>Rename this category:</h4>
+                    <form action="/categories/{{ category.getId }}
+                        /edit" method="post">
+                    <input name="_method" type="hidden" value="patch">
+                    <label for="name">New category name:</label>
+                    <input id="name" name="name" type="text" placeholder="NEW NAME">
+                    <button type="submit" class="btn-danger">
+                        send</button>
+                </form>
+
+                <br>
                 <hr>
 
                 <center>

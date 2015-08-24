@@ -24,9 +24,17 @@
                                 <p>  - {{ task.getDueDate }}</p>
                             </a>
 
-                            <form action="/tasks/toggle" method="post">
-                                <button type="submit" class="btn-xs btn-danger">[ √ ]</button>
+                            {% if task.getComplete == "true" %}
+                                <form action="/tasks/toggle/{{ task.getId }}" method="post">
+                                    <input name="_method" type="hidden" value="patch">
+                                    <button type="submit" class="btn-xs btn-danger">[ √ ]</button>
+                                </form>
+                            {% else %}
+                            <form action="/tasks/toggle/{{ task.getId }}" method="post">
+                                <input name="_method" type="hidden" value="patch">
+                                <button type="submit" class="btn-xs btn-danger">[ . ]</button>
                             </form>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 {% endif %}

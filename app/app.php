@@ -17,6 +17,10 @@
         'twig.path' => __DIR__.'/../views'
     ));
 
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
+
+
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig',
             array('categories' => Category::getAll(), "tasks" => Task::getAll()));
@@ -84,6 +88,13 @@
         $task = Task::find($_POST["task_id"]);
         $task->addCategory($category);
         return $app["twig"]->render("task.html.twig", array("task" => $task, "tasks" => Task::getAll(), "categories" => $task->getCategories(), "all_categories" => Category::getAll()));
+    });
+
+    $app->patch("/tasks/toggle/{id}", function($id) use ($app) {
+        $task = Task::find($id);
+        $task->completeToggle();
+        return $app["twig"]->render("tasks.html.twig",
+            array("tasks" => Task::getAll()));
     });
 
     return $app;

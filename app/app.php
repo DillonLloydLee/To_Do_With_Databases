@@ -97,6 +97,19 @@
         return $app["twig"]->render("category_edit.html.twig", array("category" => $category, "categories" => Category::getAll(), "tasks" => $category->getTasks(), "all_tasks" => Task::getAll()));
     });
 
+    $app->patch("/tasks/{id}/edit", function($id) use ($app) {
+        $name = $_POST["name"];
+        $task = Task::find($id);
+        $task->update($name);
+        return $app['twig']->render('task_edit.html.twig', array('task' => $task, 'categories' => $task->getCategories(), 'all_categories' => Category::getAll()));
+    });
+
+    $app->delete("/tasks/{id}/delete", function($id) use($app){
+        $task = Task::find($id);
+        $task->delete();
+        return $app["twig"]->render("tasks.html.twig", array("tasks" => Task::getAll()));
+    });
+
     $app->post("/add_categories", function() use ($app) {
         $category = Category::find($_POST['category_id']);
         $task = Task::find($_POST["task_id"]);

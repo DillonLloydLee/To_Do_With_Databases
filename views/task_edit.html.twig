@@ -35,16 +35,35 @@
                             <option value="{{ category.getId }}"> {{ category.getName }} </option>
                         {% endfor %}
                     </select>
-                    <!-- <label for="description">Task Description</label>
-                    <input id="description" name="description" type="text"
-                        placeholder="Thing to do">
-                    <br>
-                    <label for="due_date">Due Date</label>
-                    <input id="due_date" name="due_date" type="date">
-                    <br> -->
 
                     <button type="submit" class="btn-danger">Add category</button>
                 </form>
+                <br>
+
+                <hr class=small>
+
+                <h4>Rename this task:</h4>
+                    <form action="/tasks/{{ task.getId }}/edit"
+                        method="post">
+                        <input name="_method" type="hidden" value="patch">
+                        <label for="name">New task name:</label>
+                        <input id="name" name="name" type="text"
+                            placeholder="NEW NAME">
+                        <button type="submit" class="btn-danger">
+                            SEND NAME</button>
+                    </form>
+
+                <br>
+                <hr class=small>
+
+                <h4>Erase this task:</h4>
+                    <form action="/tasks/{{ task.getId }}/delete"
+                        method="post">
+                        <input name="_method" type="hidden" value="delete">
+                        <button type="submit" class="btn-danger">
+                            KILL FOREVER</button>
+                    </form>
+
                 <br>
                 <hr>
 
